@@ -1,0 +1,19 @@
+<h1>Your country: {{ country }}</h1>
+<h2>Your city is: {{ city }}, with calling code: {{ calling_code }}</h2>
+<p>Your coordinates are: latitude: {{ lat }}, longitude: {{ lng }}</p>
+
+<div class="pinboard">
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 p-3" *ngFor="let image of images">
+      <div class="card">
+        <a href="{{image.url}}_b.jpg">
+          <img src="{{image.url}}_m.jpg" title="{{image.title}}">
+        </a>
+      </div>
+    </div>
+  </div>
