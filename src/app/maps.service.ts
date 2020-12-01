@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 interface Location {
-  latitude: string;
-  longitude: string;
+  latitude: any;
+  longitude: any;
   country_name: string;
   country_calling_code: string;
   city: string;
@@ -17,5 +17,9 @@ export class MapsService {
 
   getLocation() {
     return this.http.get<Location>("https://ipapi.co/json/");
+  }
+
+  getImageData(url){
+    return this.http.get(url,{ responseType: 'text' });
   }
 }

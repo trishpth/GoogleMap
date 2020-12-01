@@ -1,19 +1,40 @@
-<h1>Your country: {{ country }}</h1>
-<h2>Your city is: {{ city }}, with calling code: {{ calling_code }}</h2>
-<p>Your coordinates are: latitude: {{ lat }}, longitude: {{ lng }}</p>
+<h1>Fickr Google Map demo</h1>
+<h3>Drap and click on the icon to see the images clicked on that location</h3>
+<agm-map 
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  [zoomControl]="false"
+  (mapClick)="mapClicked($event)">
 
-<div class="pinboard">
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-  </agm-map>
-</div>
-
-<div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-4 p-3" *ngFor="let image of images">
-      <div class="card">
-        <a href="{{image.url}}_b.jpg">
-          <img src="{{image.url}}_m.jpg" title="{{image.title}}">
-        </a>
+  <agm-marker 
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)">
+      
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+      
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4 p-3">
+          <div class="card" *ngFor="let img of src">
+              <img [src]="img" >
+          </div>
+          <div *ngIf="src.length == 0">
+            Searching... 
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+
+    </agm-info-window>
+    
+  </agm-marker>
+  
+
+
+</agm-map>
